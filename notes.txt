@@ -1,0 +1,11 @@
+1. Create OCI free account
+2. Enable MFA for root user
+3. Install CLI
+4. Create budget alert
+5. Deploy VCN
+6. Create Security Lists
+7. Create Subnets
+8. Create cluster
+9. Setup k8s directory
+10. Create Service with "oci.oraclecloud.com/load-balancer-type" = "nlb" annotation
+11. Add Okta authentication - https://developer.okta.com/blog/2021/11/08/k8s-api-server-oidc
