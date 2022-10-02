@@ -1,3 +1,11 @@
+data "http" "public_ip" {
+  url = "http://icanhazip.com"
+}
+
+locals {
+  home_ip = "${chomp(data.http.public_ip.response_body)}/32"
+}
+
 module "vcn" {
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.5.0"
@@ -31,8 +39,8 @@ resource "oci_core_security_list" "private_subnet_sl" {
     destination_type = "CIDR_BLOCK"
     protocol         = "1"
     icmp_options {
-      code = 3
-      type = 4
+      type = 3
+      code = 4
     }
     description = "Allow ICMP for path discovery"
   }

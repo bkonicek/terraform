@@ -1,3 +1,5 @@
+# SecurityList and NSG rules adapted from: https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengnetworkconfigexample.htm#example-flannel-cni-publick8sapi_privateworkers_publiclb
+
 resource "oci_core_network_security_group" "k8s_apiserver" {
   compartment_id = var.compartment_id
   vcn_id         = module.vcn.vcn_id
@@ -39,7 +41,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_apiserver_home
   network_security_group_id = oci_core_network_security_group.k8s_apiserver.id
 
   direction = "INGRESS"
-  source    = "107.15.177.214/32"
+  source    = local.home_ip
   protocol  = "6"
   tcp_options {
     destination_port_range {

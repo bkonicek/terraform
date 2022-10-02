@@ -8,11 +8,6 @@ variable "compartment_id" {
   default = "ocid1.tenancy.oc1..aaaaaaaagrijaszt6hht7kcyfsjbgax6d4kigppo234qrs2f6ftp5k7nlocq"
 }
 
-variable "home_ip" {
-  type    = string
-  default = "107.15.177.214/32"
-}
-
 variable "k8s_version" {
   type    = string
   default = "v1.23.4"
