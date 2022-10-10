@@ -26,29 +26,6 @@ resource "oci_bastion_bastion" "bastion" {
   target_subnet_id             = oci_core_subnet.vcn_private_subnet.id
 }
 
-resource "oci_bastion_session" "demo_bastionsession" {
-
-  bastion_id = oci_bastion_bastion.bastion.id
-
-  key_details {
-
-    public_key_content = data.local_file.ssh_key.content
-  }
-
-  target_resource_details {
-
-    session_type       = "MANAGED_SSH"
-    target_resource_id = "ocid1.instance.oc1.iad.anuwcljtwrjyqsqc26rrfc65esfctojant2frgyacf7k3zu75iwibhtj2qga"
-
-    target_resource_operating_system_user_name = "opc"
-    target_resource_port                       = "22"
-  }
-
-  session_ttl_in_seconds = 3600
-
-  display_name = "bastionsession-private-host"
-}
-
-output "connection_details" {
-  value = oci_bastion_session.demo_bastionsession.ssh_metadata.command
+data "oci_core_instance" "nfs" {
+  instance_id = "ocid1.instance.oc1.iad.anuwcljtwrjyqsqc26rrfc65esfctojant2frgyacf7k3zu75iwibhtj2qga"
 }
