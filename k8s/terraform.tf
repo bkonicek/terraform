@@ -3,8 +3,13 @@ terraform {
 
   required_providers {
     oci = {
-      source  = "oracle/oci"
-      version = "~> 4.85"
+      source = "oracle/oci"
+    }
+  }
+  backend "remote" {
+    organization = "bkonicek-personal"
+    workspaces {
+      name = "k8s-terraform"
     }
   }
 }

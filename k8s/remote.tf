@@ -1,7 +1,10 @@
 data "terraform_remote_state" "oci" {
-  backend = "local"
+  backend = "remote"
 
   config = {
-    path = "../oci/kubernetes-vcn/terraform.tfstate"
+    organization = "bkonicek-personal"
+    workspaces = {
+      name = "oci-terraform"
+    }
   }
 }

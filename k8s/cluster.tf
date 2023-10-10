@@ -1,6 +1,6 @@
 provider "kubernetes" {
   config_path    = "~/.kube/config"
-  config_context = "context-c6lpwtrw5ka"
+  config_context = "oci"
 }
 
 provider "oci" {

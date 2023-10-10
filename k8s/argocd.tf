@@ -1,21 +1,26 @@
 provider "helm" {
   kubernetes {
     config_path    = "~/.kube/config"
-    config_context = "context-c6lpwtrw5ka"
+    config_context = "oci"
   }
 }
 
-resource "helm_release" "nginx_ingress" {
-  name             = "nginx-ingress-controller"
-  namespace        = "ingress-nginx"
-  create_namespace = true
-
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  version    = "4.2.0"
-
-  set {
-    name  = "controller.service.annotations.oci\\.oraclecloud\\.com/load-balancer-type"
-    value = "nlb"
+resource "kubernetes_namespace" "argocd" {
+  metadata {
+    name = "argocd"
   }
 }
+
+resource "helm_release" "argocd" {
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+  name       = "argocd"
+  version    = "5.46.7"
+  namespace  = kubernetes_namespace.argocd.id
+}
+
+# resource "kubernetes_manifest" "argo_base_app" {
+#   manifest = {
+#     "apiVersion"
+#   }
+# }

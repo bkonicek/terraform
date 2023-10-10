@@ -15,8 +15,3 @@ variable "base_url" {
 variable "org_name" {
   description = "The Okta org name. This is the part before the domain in your Okta org URL"
 }
-variable "api_token" {
-  type        = string
-  description = "The Okta API token, this will be read from environment variable (TF_VAR_api_token) for security"
-  sensitive   = true
-}
