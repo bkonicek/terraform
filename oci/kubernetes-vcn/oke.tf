@@ -330,7 +330,7 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
   }
   node_shape = var.arm_node_shape # always-free ARM
   node_shape_config {
-    memory_in_gbs = 6
+    memory_in_gbs = 8
     ocpus         = 1
   }
   node_source_details {
@@ -343,40 +343,3 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
   }
   ssh_public_key = data.local_file.ssh_key.content
 }
-
-# resource "oci_containerengine_node_pool" "k8s_x86_node_pool" {
-#   cluster_id         = oci_containerengine_cluster.k8s_cluster.id
-#   compartment_id     = var.compartment_id
-#   kubernetes_version = var.k8s_version
-#   name               = "oci-k8s-node-pool-x86"
-#   node_config_details {
-#     placement_configs {
-#       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-#       subnet_id           = oci_core_subnet.vcn_private_subnet.id
-#     }
-#     placement_configs {
-#       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
-#       subnet_id           = oci_core_subnet.vcn_private_subnet.id
-#     }
-#     placement_configs {
-#       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[2].name
-#       subnet_id           = oci_core_subnet.vcn_private_subnet.id
-#     }
-#     size = 2
-
-#   }
-#   node_shape = var.x86_node_shape # always-free x86
-#   node_shape_config {
-#     memory_in_gbs = 1
-#     ocpus         = 1
-#   }
-#   node_source_details {
-#     image_id    = data.oci_core_images.x86_image.images[0].id
-#     source_type = "image"
-#   }
-#   initial_node_labels {
-#     key   = "name"
-#     value = "oci-cluster"
-#   }
-#   ssh_public_key = data.local_file.ssh_key.content
-# }
