@@ -19,8 +19,8 @@ resource "helm_release" "argocd" {
   namespace  = kubernetes_namespace.argocd.id
 }
 
-# resource "kubernetes_manifest" "argo_base_app" {
-#   manifest = {
-#     "apiVersion"
-#   }
-# }
+resource "kubernetes_manifest" "argo_base_app" {
+  manifest = yamldecode(file("./manifests/application-argocd.yml"))
+
+  depends_on = [helm_release.argocd]
+}
