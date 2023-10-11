@@ -11,16 +11,14 @@ resource "kubernetes_namespace" "argocd" {
   }
 }
 
-resource "helm_release" "argocd" {
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo-cd"
-  name       = "argocd"
-  version    = "5.46.7"
-  namespace  = kubernetes_namespace.argocd.id
-}
+# Manually deploy argocd one time with 
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.8.4/manifests/install.yaml
 
+# Add the app-of-apps Application after installing Argo, ignore all changes as it will be
+# managed by itself going forward
 resource "kubernetes_manifest" "argo_base_app" {
   manifest = yamldecode(file("./manifests/application-argocd.yml"))
-
-  depends_on = [helm_release.argocd]
+  lifecycle {
+    ignore_changes = [all]
+  }
 }
