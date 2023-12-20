@@ -1,5 +1,5 @@
 data "http" "public_ip" {
-  url = "http://icanhazip.com"
+  url = "http://ipv4.icanhazip.com"
 }
 
 locals {

@@ -303,7 +303,7 @@ data "oci_core_images" "arm_image" {
 # }
 
 data "local_file" "ssh_key" {
-  filename = "/home/bkonicek/.ssh/oci-k8s-node.pub"
+  filename = "/Users/ben/.ssh/oci-k8s-node.pub"
 }
 
 resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
