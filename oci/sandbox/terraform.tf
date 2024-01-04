@@ -10,7 +10,7 @@ terraform {
   backend "remote" {
     organization = "bkonicek-personal"
     workspaces {
-      name = "oci-terraform"
+      name = "oci-sandbox"
     }
   }
 }
