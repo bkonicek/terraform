@@ -10,7 +10,7 @@ variable "compartment_id" {
 
 variable "k8s_version" {
   type    = string
-  default = "v1.27.2"
+  default = "v1.27.10"
 }
 
 variable "arm_node_shape" {
