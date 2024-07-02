@@ -259,21 +259,6 @@ resource "oci_core_network_security_group_security_rule" "egress_internet" {
   protocol    = "6"
 }
 
-# resource "oci_core_network_security_group_security_rule" "ingress_loadbalancer_udp" {
-#   description               = "Allow load balancer ingress"
-#   network_security_group_id = oci_core_network_security_group.k8s_nodes.id
-
-#   direction = "INGRESS"
-#   source    = oci_core_subnet.vcn_public_subnet.cidr_block
-#   protocol  = "17"
-#   udp_options {
-#     destination_port_range {
-#       min = 30000
-#       max = 32767
-#     }
-#   }
-# }
-
 data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
 }
@@ -288,22 +273,14 @@ data "oci_core_images" "arm_image" {
   sort_by                  = "TIMECREATED"
 }
 
-# data "oci_core_images" "x86_image" {
-#   compartment_id = var.compartment_id
+data "oci_core_images" "x86_image" {
+  compartment_id = var.compartment_id
 
-#   operating_system         = "Oracle Linux"
-#   operating_system_version = "8"
-#   shape                    = var.x86_node_shape
-#   state                    = "AVAILABLE"
-#   sort_by                  = "TIMECREATED"
-# }
-
-# output "image" {
-#   value = data.oci_core_images.x86_image
-# }
-
-data "local_file" "ssh_key" {
-  filename = "/Users/ben/.ssh/oci-k8s-node.pub"
+  operating_system         = "Oracle Linux"
+  operating_system_version = "8"
+  shape                    = var.x86_node_shape
+  state                    = "AVAILABLE"
+  sort_by                  = "TIMECREATED"
 }
 
 resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
@@ -341,5 +318,4 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
     key   = "name"
     value = "oci-cluster"
   }
-  ssh_public_key = data.local_file.ssh_key.content
 }
