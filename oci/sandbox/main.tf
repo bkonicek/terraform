@@ -1,5 +1,5 @@
 data "http" "public_ip" {
-  url = "http://ipv4.icanhazip.com"
+  url = "http://checkip.amazonaws.com"
 }
 
 locals {
