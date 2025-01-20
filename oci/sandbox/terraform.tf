@@ -7,10 +7,11 @@ terraform {
     }
   }
 
-  backend "remote" {
+  cloud {
     organization = "bkonicek-personal"
     workspaces {
       name = "oci-sandbox"
     }
+    hostname = "app.terraform.io"
   }
 }
