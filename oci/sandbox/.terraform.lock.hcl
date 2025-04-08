@@ -5,6 +5,7 @@ provider "registry.opentofu.org/hashicorp/http" {
   version = "3.4.5"
   hashes = [
     "h1:IkHNZ09hqg1TtLrUqUHIqoKXbNJE69dk917niblQf3U=",
+    "h1:oY8/rxWoClyGJCGPLLshbG1tbj7+fy6TM1AwY+QUfQ4=",
     "zh:055a4431d33bb89b9848193152433eaead7cc2e6746d3436a5922419de2112bf",
     "zh:0bfabafea9f5e36802fcfc5a800831ec1767d896af889abc610014d02b09bdc2",
     "zh:300b4983fe1b43bd0a7dac1f94b30b3814f11c824224dd83fb45a521c02cea60",
@@ -22,6 +23,7 @@ provider "registry.opentofu.org/oracle/oci" {
   version     = "6.22.0"
   constraints = ">= 4.67.3, >= 5.0.0"
   hashes = [
+    "h1:Lh4LSdfShCX1sptD/gyiSq5tplm7WYQs7Rbkogo5M9U=",
     "h1:wqExgBZ5sjmtRvGACrynlwIbnf51DCamfwRaUeOEGc4=",
     "zh:01a2f761e596bfca1136d0491dc8a0f6eb9dfe1f4ea109d4bf064771996c0c5f",
     "zh:04761c9185e6bc4712da2ffb9575088290c6321bb840d29a1d0eedbc721910a3",
