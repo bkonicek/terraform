@@ -301,14 +301,14 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
       availability_domain = data.oci_identity_availability_domains.ads.availability_domains[2].name
       subnet_id           = oci_core_subnet.vcn_private_subnet.id
     }
-    size = 3
+    size = 2
 
     nsg_ids = [oci_core_network_security_group.k8s_nodes.id]
   }
   node_shape = var.arm_node_shape # always-free ARM
   node_shape_config {
-    memory_in_gbs = 8
-    ocpus         = 1
+    memory_in_gbs = 12
+    ocpus         = 2
   }
   node_source_details {
     image_id    = data.oci_core_images.arm_image.images[0].id
