@@ -263,24 +263,28 @@ data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_id
 }
 
-data "oci_core_images" "arm_image" {
-  compartment_id = var.compartment_id
-
-  operating_system         = "Oracle Linux"
-  operating_system_version = "8"
-  shape                    = var.arm_node_shape
-  state                    = "AVAILABLE"
-  sort_by                  = "TIMECREATED"
+data "oci_containerengine_node_pool_option" "oke_images" {
+  node_pool_option_id = "all"
+  compartment_id      = var.compartment_id
 }
 
-data "oci_core_images" "x86_image" {
-  compartment_id = var.compartment_id
+locals {
+  k8s_version_name = trimprefix(lower(var.k8s_version), "v")
+  node_pool_images = try(one(data.oci_containerengine_node_pool_option.oke_images[*].sources), [])
 
-  operating_system         = "Oracle Linux"
-  operating_system_version = "8"
-  shape                    = var.x86_node_shape
-  state                    = "AVAILABLE"
-  sort_by                  = "TIMECREATED"
+  arm_oke_image_ids = [
+    for src in local.node_pool_images : src.image_id
+    if try(length(regex("oke", lower(src.source_name))), 0) > 0 &&
+       try(length(regex("aarch64", lower(src.source_name))), 0) > 0 &&
+       try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
+  ]
+
+  x86_oke_image_ids = [
+    for src in local.node_pool_images : src.image_id
+    if try(length(regex("oke", lower(src.source_name))), 0) > 0 &&
+       try(length(regex("x86_64", lower(src.source_name))), 0) > 0 &&
+       try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
+  ]
 }
 
 resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
@@ -311,7 +315,7 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
     ocpus         = 2
   }
   node_source_details {
-    image_id    = data.oci_core_images.arm_image.images[0].id
+    image_id    = local.arm_oke_image_ids[0]
     source_type = "image"
   }
   initial_node_labels {
