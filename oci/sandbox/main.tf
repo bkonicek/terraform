@@ -8,7 +8,7 @@ locals {
 
 module "vcn" {
   source  = "oracle-terraform-modules/vcn/oci"
-  version = "3.6.0"
+  version = "4.0.0"
 
   compartment_id = var.compartment_id
   region         = var.region
