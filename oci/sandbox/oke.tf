@@ -275,15 +275,15 @@ locals {
   arm_oke_image_ids = [
     for src in local.node_pool_images : src.image_id
     if try(length(regex("oke", lower(src.source_name))), 0) > 0 &&
-       try(length(regex("aarch64", lower(src.source_name))), 0) > 0 &&
-       try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
+    try(length(regex("aarch64", lower(src.source_name))), 0) > 0 &&
+    try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
   ]
 
   x86_oke_image_ids = [
     for src in local.node_pool_images : src.image_id
     if try(length(regex("oke", lower(src.source_name))), 0) > 0 &&
-       try(length(regex("x86_64", lower(src.source_name))), 0) > 0 &&
-       try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
+    try(length(regex("x86_64", lower(src.source_name))), 0) > 0 &&
+    try(length(regex(local.k8s_version_name, lower(src.source_name))), 0) > 0
   ]
 }
 
