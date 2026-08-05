@@ -308,6 +308,10 @@ resource "oci_containerengine_node_pool" "k8s_arm_node_pool" {
     size = 2
 
     nsg_ids = [oci_core_network_security_group.k8s_nodes.id]
+
+    defined_tags = {
+      "${oci_identity_tag_namespace.oke.name}.${oci_identity_tag.oke_node.name}" = "true"
+    }
   }
   node_shape = var.arm_node_shape # always-free ARM
   node_shape_config {
